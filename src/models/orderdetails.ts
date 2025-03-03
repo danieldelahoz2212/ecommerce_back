@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 import db from "../db/connection";
 
-const Order = db.define(
-  "orders",
+const orderDetails = db.define(
+  "orderdetails",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -10,32 +10,31 @@ const Order = db.define(
       primaryKey: true,
       allowNull: false,
     },
-    idUser: {
+    orderId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    totalPrice: {
+    productId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    statusOrder: {
+    amount: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 1,
     },
-    payment: {
-      type: DataTypes.STRING,
+    price: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     status: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: true,
-    },
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: true,
+      },
   },
   {
     timestamps: false,
   }
 );
 
-export default Order;
+export default orderDetails;
