@@ -4,7 +4,7 @@ import {
   getUsers,
   getUser,
   postUser,
-  patchUser,
+  patchRol,
   deleteUser,
   login,
 } from "../controllers/users";
@@ -12,10 +12,10 @@ import {
 const router = Router();
 
 router.get("/", getUsers);
-router.get("/:id", [verifyToken(["admin", "vendedor", "cliente"])], getUser);
+router.get("/:id", [verifyToken(["admin", "vendedor"])], getUser);
 router.post("/", postUser);
-router.patch("/:id", patchUser);
-router.delete("/:id",[verifyToken(["admin", "vendedor", "cliente"])], deleteUser);
+router.patch("/rol", [verifyToken(["admin"])], patchRol);
+router.delete("/:id", [verifyToken(["admin", "vendedor"])], deleteUser);
 router.post("/login", login);
 
 export default router;

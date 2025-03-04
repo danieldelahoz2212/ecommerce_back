@@ -22,15 +22,18 @@ export const getOrders = async (req: Request, res: Response) => {
   }
 };
 
-export const getOrder = async (req: Request, res: Response) => {
+export const getOrdersUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const order = await Order.findAll({ where: { id, status: 1 } });
-    if (!order) {
+    const orders = await Order.findAll({ where: { idUser: id, status: 1 } });
+    if (!orders) {
       res.status(404).json({ message: "Pedido no encontrado" });
       return;
     }
-    res.json(order);
+    res.status(200).json({
+      msg: "Lista de pedidos del usuario obtenida correctamente",
+      orders,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Error al obtener el pedido" });
@@ -114,6 +117,7 @@ export const postOrder = async (req: Request, res: Response) => {
       msg: "Orden creada correctamente",
       order,
     });
+    return;
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error al crear el pedido" });

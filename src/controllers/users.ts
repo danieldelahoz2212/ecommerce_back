@@ -5,6 +5,7 @@ import { encrypt } from "./auth";
 import jwt from "jsonwebtoken";
 import Sessions from "../models/sessions";
 import { compare } from "bcrypt";
+import Roles from "../models/roles";
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -95,19 +96,26 @@ export const postUser = async (req: Request, res: Response) => {
   }
 };
 
-export const patchUser = async (req: Request, res: Response) => {
+export const patchRol = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const { name, lastName, email, password, rol } = req.body;
+    const { email, rol } = req.body;
 
-    const user = await Users.findByPk(id);
+    const user = await Users.findOne({ where: { email } });
 
     if (!user) {
-      res.status(400).json({ message: "No existe un usuario con el id " + id });
+      res
+        .status(400)
+        .json({ message: "No existe un usuario con el email " + email });
       return;
     }
 
-    await user.update({ name, lastName, email, password, rol });
+    const roles = await Roles.findOne({ where: { id: rol } });
+    if (!roles) {
+      res.status(400).json({ message: "No existe un rol con el id " + rol });
+      return;
+    }
+
+    await user.update({ rol });
 
     res.status(200).json({
       msg: "usuario actualizado con éxito",
@@ -144,7 +152,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
-  const user = await Users.findOne({ where: { email } });
+  const user = await Users.findOne({ where: { email, status: 1 } });
   if (!user) {
     res
       .status(400)

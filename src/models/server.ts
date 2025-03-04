@@ -3,6 +3,7 @@ import userRouters from "../routes/users";
 import productRouters from "../routes/products";
 import categoryRouters from "../routes/category";
 import orderRouters from "../routes/orders";
+import rolRouters from "../routes/roles";
 import cors from "cors";
 
 import db from "../db/connection";
@@ -15,6 +16,7 @@ class Server {
     products: "/api/products",
     category: "/api/category",
     order: "/api/order",
+    rol: "/api/rol",
   };
 
   constructor() {
@@ -50,6 +52,7 @@ class Server {
     this.app.use(this.apiPaths.products, productRouters);
     this.app.use(this.apiPaths.category, categoryRouters);
     this.app.use(this.apiPaths.order, orderRouters);
+    this.app.use(this.apiPaths.rol, rolRouters);
   }
 
   listen() {
