@@ -170,21 +170,27 @@ export const login = async (req: Request, res: Response) => {
 
   const checkPassword = await compare(password, user.getDataValue("password"));
 
-  const session = await Sessions.findOne({
-    where: { idUsers: user.getDataValue("id") },
+  if (!checkPassword) {
+    res.status(401).json({ message: "Contraseña incorrecta" });
+    return;
+  }
+
+  await Sessions.update(
+    { status: 0 },
+    { where: { idUsers: user.getDataValue("id"), status: 1 } }
+  );
+
+  const token = jwt.sign(
+    { id: user.getDataValue("id"), rol: user.getDataValue("rol") },
+    process.env.JWT_SECRET as string
+  );
+
+  await Sessions.create({ idUsers: user.getDataValue("id"), token, status: 1 });
+
+  res.status(200).json({
+    message: "Usuario logueado con éxito",
+    user,
+    token,
   });
-
-  if (!session) {
-    res.status(402).json({ message: "no se encontro el token" });
-    return;
-  }
-
-  if (checkPassword) {
-    res.status(200).json({
-      message: "Usuario logueado con éxito",
-      user,
-      token: session?.getDataValue("token"),
-    });
-    return;
-  }
+  return;
 };
