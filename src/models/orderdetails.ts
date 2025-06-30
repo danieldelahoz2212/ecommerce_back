@@ -1,5 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../db/connection";
+import Order from "./orders";
+import Products from "./products";
 
 const orderDetails = db.define(
   "orderdetails",
@@ -13,10 +15,18 @@ const orderDetails = db.define(
     orderId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'orders',
+        key: 'id',
+      },
     },
     productId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'products',
+        key: 'id',
+      },
     },
     amount: {
       type: DataTypes.INTEGER,
@@ -36,5 +46,10 @@ const orderDetails = db.define(
     timestamps: false,
   }
 );
+
+orderDetails.belongsTo(Order, { foreignKey: 'orderId' });
+Order.hasMany(orderDetails, { foreignKey: 'orderId' });
+orderDetails.belongsTo(Products, { foreignKey: 'productId' });
+Products.hasMany(orderDetails, { foreignKey: 'productId' });
 
 export default orderDetails;

@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../db/connection";
+import Roles from "./roles";
 
 const Users = db.define(
   "users",
@@ -29,6 +30,10 @@ const Users = db.define(
     rol: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'roles',
+        key: 'id',
+      },
     },
     status: {
       type: DataTypes.INTEGER,
@@ -39,5 +44,8 @@ const Users = db.define(
     timestamps: false
   }
 );
+
+Users.belongsTo(Roles, { foreignKey: 'rol' });
+Roles.hasMany(Users, { foreignKey: 'rol' });
 
 export default Users;

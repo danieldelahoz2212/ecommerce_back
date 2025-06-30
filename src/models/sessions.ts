@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../db/connection";
+import Users from "./users";
 
 const Sessions = db.define(
   "sessions",
@@ -13,6 +14,10 @@ const Sessions = db.define(
     idUsers: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id',
+      },
     },
     token: {
       type: DataTypes.STRING,
@@ -28,5 +33,8 @@ const Sessions = db.define(
     timestamps: false,
   }
 );
+
+Sessions.belongsTo(Users, { foreignKey: 'idUsers' });
+Users.hasMany(Sessions, { foreignKey: 'idUsers' });
 
 export default Sessions;

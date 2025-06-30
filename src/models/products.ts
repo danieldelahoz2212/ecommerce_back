@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../db/connection";
+import Category from "./category";
 
 const Products = db.define(
   "products",
@@ -25,6 +26,10 @@ const Products = db.define(
     category: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'category',
+        key: 'id',
+      },
     },
     stock: {
       type: DataTypes.INTEGER,
@@ -44,5 +49,8 @@ const Products = db.define(
     timestamps: false,
   }
 );
+
+Products.belongsTo(Category, { foreignKey: 'category', as: 'categoryRef' });
+Category.hasMany(Products, { foreignKey: 'category', as: 'products' });
 
 export default Products;

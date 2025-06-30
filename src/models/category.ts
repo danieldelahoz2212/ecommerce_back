@@ -20,4 +20,4 @@ const Category = db.define('category', {
     timestamps: false
   });
 
-  export default Category;
+export default Category;

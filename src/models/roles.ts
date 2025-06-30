@@ -20,4 +20,4 @@ const Roles = db.define('roles', {
     timestamps: false
   });
 
-  export default Roles;
+export default Roles;

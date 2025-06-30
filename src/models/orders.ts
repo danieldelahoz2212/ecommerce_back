@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../db/connection";
+import Users from "./users";
 
 const Order = db.define(
   "orders",
@@ -13,6 +14,10 @@ const Order = db.define(
     idUser: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id',
+      },
     },
     totalPrice: {
       type: DataTypes.INTEGER,
@@ -37,5 +42,8 @@ const Order = db.define(
     timestamps: false,
   }
 );
+
+Order.belongsTo(Users, { foreignKey: 'idUser' });
+Users.hasMany(Order, { foreignKey: 'idUser' });
 
 export default Order;
