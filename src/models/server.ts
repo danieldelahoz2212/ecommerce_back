@@ -4,6 +4,7 @@ import productRouters from "../routes/products";
 import categoryRouters from "../routes/category";
 import orderRouters from "../routes/orders";
 import rolRouters from "../routes/roles";
+import productImagesRouters from "../routes/product_images";
 import cors from "cors";
 
 import db from "../db/connection";
@@ -17,6 +18,7 @@ class Server {
     category: "/api/category",
     order: "/api/order",
     rol: "/api/rol",
+    productImages: "/api/product-images",
   };
 
   constructor() {
@@ -53,6 +55,7 @@ class Server {
     this.app.use(this.apiPaths.category, categoryRouters);
     this.app.use(this.apiPaths.order, orderRouters);
     this.app.use(this.apiPaths.rol, rolRouters);
+    this.app.use(this.apiPaths.productImages, productImagesRouters);
   }
 
   listen() {

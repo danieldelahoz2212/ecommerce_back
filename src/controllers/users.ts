@@ -84,6 +84,14 @@ export const postUser = async (req: Request, res: Response) => {
 
     res.status(200).json({
       msg: "Usuario creado con éxito",
+      user: {
+        id: user.getDataValue("id"),
+        name: user.getDataValue("name"),
+        lastName: user.getDataValue("lastName"),
+        email: user.getDataValue("email"),
+        rol: user.getDataValue("rol"),
+      },
+      token: token,
       status: true,
     });
     return;

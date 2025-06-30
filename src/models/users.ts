@@ -40,6 +40,11 @@ const Users = db.define(
       allowNull: false,
       defaultValue: true,
     },
+    img: {
+      type: DataTypes.TEXT('long'),
+      allowNull: true,
+      comment: 'Imagen de usuario en base64 o URL',
+    },
   }, {
     timestamps: false
   }

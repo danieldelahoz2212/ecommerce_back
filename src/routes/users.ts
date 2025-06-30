@@ -11,7 +11,7 @@ import {
 
 const router = Router();
 
-router.get("/", getUsers);
+router.get("/", [verifyToken(["admin"])], getUsers);
 router.get("/:id", [verifyToken(["admin", "vendedor"])], getUser);
 router.post("/", postUser);
 router.patch("/rol", [verifyToken(["admin"])], patchRol);
