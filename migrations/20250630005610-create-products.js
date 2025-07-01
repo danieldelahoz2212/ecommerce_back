@@ -36,10 +36,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      img: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       status: {
         type: Sequelize.INTEGER,
         allowNull: false,

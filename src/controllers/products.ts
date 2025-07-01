@@ -45,7 +45,7 @@ export const getProduct = async (req: Request, res: Response) => {
 
 export const postProduct = async (req: Request, res: Response) => {
   try {
-    const { name, description, price, category, stock, img } = req.body;
+    const { name, description, price, category, stock } = req.body;
     const succeedProduct = await Products.findOne({ where: { name } });
     if (succeedProduct) {
       res.status(400).json({ msg: "El producto ya existe" });
@@ -58,7 +58,6 @@ export const postProduct = async (req: Request, res: Response) => {
       price,
       category,
       stock,
-      img,
     });
     res.status(200).json({
       msg: "producto creado correctamente",
@@ -76,7 +75,7 @@ export const postProduct = async (req: Request, res: Response) => {
 export const patchProduct = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { name, description, price, category, stock, img } = req.body;
+    const { name, description, price, category, stock } = req.body;
     const product = await Products.findByPk(id);
     if (!product) {
       res.status(404).json({ msg: `producto no encontrado ${id}` });
@@ -89,7 +88,6 @@ export const patchProduct = async (req: Request, res: Response) => {
       price,
       category,
       stock,
-      img,
     });
     res.status(200).json({ msg: "producto actualizado correctamente", updatedProduct });
   } catch (error) {

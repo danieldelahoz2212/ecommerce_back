@@ -35,15 +35,11 @@ const Products = db.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    img: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
     status: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: true,
-      },
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: true,
+    },
   },
   {
     timestamps: false,
