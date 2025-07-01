@@ -44,7 +44,8 @@ class Server {
   middlewares() {
     this.app.use(cors());
 
-    this.app.use(express.json());
+    this.app.use(express.json({ limit: "10mb" }));
+    this.app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
     this.app.use(express.static("public"));
   }
