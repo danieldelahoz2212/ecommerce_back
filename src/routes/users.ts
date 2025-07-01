@@ -5,6 +5,7 @@ import {
   getUser,
   postUser,
   patchRol,
+  patchUser,
   deleteUser,
   login,
 } from "../controllers/users";
@@ -15,6 +16,7 @@ router.get("/", [verifyToken(["admin"])], getUsers);
 router.get("/:id", [verifyToken(["admin", "vendedor"])], getUser);
 router.post("/", postUser);
 router.patch("/rol", [verifyToken(["admin"])], patchRol);
+router.patch("/:id", [verifyToken(["admin", "vendedor", "cliente"])], patchUser);
 router.delete("/:id", [verifyToken(["admin", "vendedor"])], deleteUser);
 router.post("/login", login);
 

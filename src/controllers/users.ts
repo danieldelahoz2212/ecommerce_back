@@ -139,6 +139,38 @@ export const patchRol = async (req: Request, res: Response) => {
   }
 };
 
+export const patchUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { name, lastName, email, img, password } = req.body;
+    const user = await Users.findByPk(id);
+    if (!user) {
+      res.status(404).json({ msg: `Usuario no encontrado con id: ${id}` });
+      return;
+    }
+    const updateData: any = {};
+    if (name !== undefined) updateData.name = name;
+    if (lastName !== undefined) updateData.lastName = lastName;
+    if (email !== undefined) updateData.email = email;
+    if (img !== undefined) updateData.img = img;
+    if (password !== undefined && password !== "") {
+      updateData.password = await encrypt(password);
+    }
+    await user.update(updateData);
+    res.status(200).json({
+      msg: "Usuario actualizado con éxito",
+      user,
+    });
+    return;
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      msg: "Error al actualizar el usuario",
+    });
+    return;
+  }
+};
+
 export const deleteUser = async (req: Request, res: Response) => {
   const { id } = req.params;
 
