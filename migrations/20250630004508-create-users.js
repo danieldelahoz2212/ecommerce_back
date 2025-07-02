@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('users', {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable("users", {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -30,21 +30,26 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'roles',
-          key: 'id',
+          model: "roles",
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'RESTRICT',
+        onUpdate: "CASCADE",
+        onDelete: "RESTRICT",
+      },
+      img: {
+        type: Sequelize.TEXT("long"),
+        allowNull: true,
+        comment: "Imagen de usuario en base64 o URL",
       },
       status: {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 1,
-      }
+      },
     });
   },
 
-  async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('users');
-  }
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable("users");
+  },
 };

@@ -31,26 +31,27 @@ const Users = db.define(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'roles',
-        key: 'id',
+        model: "roles",
+        key: "id",
       },
+    },
+    img: {
+      type: DataTypes.TEXT("long"),
+      allowNull: true,
+      comment: "Imagen de usuario en base64 o URL",
     },
     status: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: true,
     },
-    img: {
-      type: DataTypes.TEXT('long'),
-      allowNull: true,
-      comment: 'Imagen de usuario en base64 o URL',
-    },
-  }, {
-    timestamps: false
+  },
+  {
+    timestamps: false,
   }
 );
 
-Users.belongsTo(Roles, { foreignKey: 'rol' });
-Roles.hasMany(Users, { foreignKey: 'rol' });
+Users.belongsTo(Roles, { foreignKey: "rol" });
+Roles.hasMany(Users, { foreignKey: "rol" });
 
 export default Users;
