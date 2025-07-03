@@ -17,7 +17,8 @@ const Category = db.define('category', {
       defaultValue: true,
     }
 }, {
-    timestamps: false
+    timestamps: false,
+    freezeTableName: true
   });
 
 export default Category;
