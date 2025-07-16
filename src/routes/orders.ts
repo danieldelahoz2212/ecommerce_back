@@ -10,6 +10,6 @@ router.get(
   [verifyToken(["admin", "vendedor", "cliente"])],
   getOrdersUser
 );
-router.post("/", postOrder);
+router.post("/", [verifyToken(["admin", "vendedor", "cliente"])], postOrder);
 
 export default router;

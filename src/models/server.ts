@@ -3,6 +3,7 @@ import userRouters from "../routes/users";
 import productRouters from "../routes/products";
 import categoryRouters from "../routes/category";
 import orderRouters from "../routes/orders";
+import StateOrder from "../routes/stateorder";
 import rolRouters from "../routes/roles";
 import productImagesRouters from "../routes/product_images";
 import cors from "cors";
@@ -17,18 +18,16 @@ class Server {
     products: "/api/products",
     category: "/api/category",
     order: "/api/order",
+    stateOrder: "/api/state_order",
     rol: "/api/rol",
-    productImages: "/api/product-images",
+    productImages: "/api/product_images",
   };
 
   constructor() {
     this.app = express();
     this.port = String(process.env.PORT);
-
     this.dbConnection();
-
     this.middlewares();
-
     this.routes();
   }
 
@@ -43,10 +42,8 @@ class Server {
 
   middlewares() {
     this.app.use(cors());
-
     this.app.use(express.json({ limit: "10mb" }));
     this.app.use(express.urlencoded({ extended: true, limit: "10mb" }));
-
     this.app.use(express.static("public"));
   }
 
@@ -55,6 +52,7 @@ class Server {
     this.app.use(this.apiPaths.products, productRouters);
     this.app.use(this.apiPaths.category, categoryRouters);
     this.app.use(this.apiPaths.order, orderRouters);
+    this.app.use(this.apiPaths.stateOrder, StateOrder);
     this.app.use(this.apiPaths.rol, rolRouters);
     this.app.use(this.apiPaths.productImages, productImagesRouters);
   }

@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 import db from "../db/connection";
 
-const Category = db.define(
-  "category",
+const StateOrder = db.define(
+  "state_order",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -21,8 +21,7 @@ const Category = db.define(
   },
   {
     timestamps: false,
-    freezeTableName: true,
   }
 );
 
-export default Category;
+export default StateOrder;

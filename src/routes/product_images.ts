@@ -2,6 +2,7 @@ import { Router } from "express";
 import verifyToken from "../middleware/verifyToken";
 import {
   getProductImages,
+  getProductImage,
   addProductImage,
   updateProductImage,
   deleteProductImage,
@@ -13,6 +14,11 @@ router.get(
   "/:productId",
   [verifyToken(["admin", "vendedor", "cliente"])],
   getProductImages
+);
+router.get(
+  "/image/:id",
+  [verifyToken(["admin", "vendedor", "cliente"])],
+  getProductImage
 );
 router.post(
   "/:productId",
