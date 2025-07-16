@@ -6,10 +6,10 @@ module.exports = {
     await queryInterface.bulkInsert(
       "state_order",
       [
-        { id: 1, name: "Pendiente", state: 1 },
-        { id: 2, name: "Enviado", state: 1 },
-        { id: 3, name: "Entregado", state: 1 },
-        { id: 4, name: "Cancelado", state: 1 },
+        { name: "Pendiente", state: 1 },
+        { name: "Enviado", state: 1 },
+        { name: "Entregado", state: 1 },
+        { name: "Cancelado", state: 1 },
       ],
       {}
     );

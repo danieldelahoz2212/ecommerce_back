@@ -23,9 +23,9 @@ export const createStateOrder = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { name } = req.body;
-    if (!name) {
-      res.status(400).json({ msg: "El nombre del estado es obligatorio" });
+    const { name, state } = req.body;
+    if (!name || !state) {
+      res.status(400).json({ msg: "El nombre y el estado son obligatorios" });
       return;
     }
     const exist = await StateOrder.findOne({ where: { name } });
@@ -33,7 +33,7 @@ export const createStateOrder = async (
       res.status(400).json({ msg: "El estado ya existe" });
       return;
     }
-    const stateOrder = await StateOrder.create({ name });
+    const stateOrder = await StateOrder.create({ name, state });
     res.status(201).json({ msg: "Estado creado correctamente", stateOrder });
   } catch (error) {
     res.status(500).json({ msg: "Error al crear el estado de pedido" });
